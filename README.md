@@ -1,61 +1,226 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🎼 Concerto API
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Uma API RESTful desenvolvida em Laravel para gerenciar músicos e instrumentos musicais, simulando um sistema de concertos.
 
-## About Laravel
+## 📋 Sobre o Projeto
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Este projeto é uma API para gerenciamento de concertos musicais, onde é possível cadastrar músicos e seus respectivos instrumentos. Foi desenvolvido como um exercício prático para aprendizado de conceitos de API REST, relacionamentos de banco de dados e containerização com Docker.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 🎯 Funcionalidades
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **Gerenciamento de Músicos**: CRUD completo para músicos
+- **Gerenciamento de Instrumentos**: CRUD completo para instrumentos
+- **Relacionamento**: Um músico possui um instrumento, e um instrumento pertence a um músico
+- **API RESTful**: Endpoints padronizados seguindo boas práticas REST
+- **Containerização**: Ambiente completo dockerizado
 
-## Learning Laravel
+## 🛠️ Tecnologias Utilizadas
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- **PHP** 8.x
+- **Laravel** 10.x
+- **MySQL** 8.0
+- **Docker** & Docker Compose
+- **Postman** (para testes da API)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## ⚙️ Requisitos
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- Docker
+- Docker Compose
+- Git
 
-## Laravel Sponsors
+## 🚀 Como Executar o Projeto
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 1. Clone o repositório
+```
+git clone https://github.com/nielreis07/concerto-api.git
+cd concerto-api
+```
 
-### Premium Partners
+### 2. Configure o ambiente
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+# Copie o arquivo de configuração
+cp .env.example .env
 
-## Contributing
+# Ajuste as variáveis de ambiente no arquivo .env
+DB_CONNECTION=mysql
+DB_HOST=db
+DB_PORT=3306
+DB_DATABASE=concerto_api
+DB_USERNAME=root
+DB_PASSWORD=password
+```
+```
+### 3. Execute com Docker
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+# Suba os containers
+docker-compose up -d
 
-## Code of Conduct
+# Instale as dependências
+docker-compose exec app composer install
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# Gere a chave da aplicação
+docker-compose exec app php artisan key:generate
 
-## Security Vulnerabilities
+# Execute as migrations
+docker-compose exec app php artisan migrate
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+# (Opcional) Execute os seeders
+docker-compose exec app php artisan db:seed
+```
+```
+### 4. Acesse a aplicação
+A API estará disponível em: `http://localhost:8000`
 
-## License
+## 📚 Endpoints da API
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Músicos
+
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| GET | `/api/musicos` | Lista todos os músicos |
+| GET | `/api/musicos/{id}` | Exibe um músico específico |
+| POST | `/api/musicos` | Cria um novo músico |
+| PUT | `/api/musicos/{id}` | Atualiza um músico |
+| DELETE | `/api/musicos/{id}` | Remove um músico |
+
+### Instrumentos
+
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| GET | `/api/instrumentos` | Lista todos os instrumentos |
+| GET | `/api/instrumentos/{id}` | Exibe um instrumento específico |
+| POST | `/api/instrumentos` | Cria um novo instrumento |
+| PUT | `/api/instrumentos/{id}` | Atualiza um instrumento |
+| DELETE | `/api/instrumentos/{id}` | Remove um instrumento |
+
+## 📝 Exemplos de Requisições
+
+### Criar um Músico
+```json
+POST /api/musicos
+Content-Type: application/json
+
+{
+  "nome": "João",
+  "sobrenome": "Silva",
+  "cpf": "123.456.789-00"
+}
+```
+
+### Criar um Instrumento
+```json
+POST /api/instrumentos
+Content-Type: application/json
+
+{
+  "nome": "Violão",
+  "tipo": "Cordas",
+  "marca": "Yamaha",
+  "musico_id": 1
+}
+```
+
+### Resposta de Sucesso
+```json
+{
+  "success": true,
+  "data": {
+    "id": 1,
+    "nome": "João",
+    "sobrenome": "Silva",
+    "cpf": "123.456.789-00",
+    "created_at": "2025-08-13T10:00:00.000000Z",
+    "updated_at": "2025-08-13T10:00:00.000000Z",
+    "instrumento": {
+      "id": 1,
+      "nome": "Violão",
+      "tipo": "Cordas",
+      "marca": "Yamaha"
+    }
+  },
+  "message": "Músico criado com sucesso"
+}
+```
+
+## 🗃️ Estrutura do Banco de Dados
+
+### Tabela: musicos
+- id (Primary Key)
+- nome
+- sobrenome
+- cpf
+- timestamps
+
+### Tabela: instrumentos
+- id (Primary Key)
+- nome
+- tipo
+- marca
+- musico_id (Foreign Key)
+- timestamps
+
+### Relacionamento
+- Um músico tem um instrumento (`hasOne`)
+- Um instrumento pertence a um músico (`belongsTo`)
+
+## 🧪 Testando a API
+
+### Com Postman
+1. Importe a collection do Postman (se disponível)
+2. Configure a URL base: `http://localhost:8000`
+3. Teste os endpoints seguindo a documentação acima
+
+### Com cURL
+```
+# Listar músicos
+curl -X GET http://localhost:8000/api/musicos
+
+# Criar músico
+curl -X POST http://localhost:8000/api/musicos \
+  -H "Content-Type: application/json" \
+  -d '{"nome":"Maria","sobrenome":"Santos","cpf":"987.654.321-00"}'
+```
+
+## 🐳 Docker
+
+O projeto inclui configuração Docker com:
+- **PHP 8.x** com extensões necessárias
+- **MySQL 8.0** como banco de dados
+- **Nginx** como servidor web
+- **Volumes** para persistência de dados
+
+### Comandos Úteis
+
+```
+# Ver logs dos containers
+docker-compose logs -f
+
+# Acessar o container da aplicação
+docker-compose exec app bash
+
+# Parar os containers
+docker-compose down
+
+# Rebuildar as imagens
+docker-compose up --build
+```
+
+## 🤝 Como Contribuir
+
+1. Faça um fork do projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request
+
+## 👨‍💻 Autor
+
+**Niel Reis**
+- GitHub: [@nielreis07](https://github.com/nielreis07)
+- LinkedIn: [danielreis-dev](https://www.linkedin.com/in/danielreis-dev/)
+
+## 📞 Contato
+
+Se você tiver alguma dúvida sobre o projeto, sinta-se à vontade para entrar em contato!
+
+-https://www.linkedin.com/in/danielreis-dev/
