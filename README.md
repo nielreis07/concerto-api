@@ -186,7 +186,6 @@ curl -X POST http://localhost:8000/api/musicos \
 O projeto inclui configuração Docker com:
 - **PHP 8.x** com extensões necessárias
 - **MySQL 8.0** como banco de dados
-- **Nginx** como servidor web
 - **Volumes** para persistência de dados
 
 ### Comandos Úteis
